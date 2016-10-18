@@ -19762,14 +19762,44 @@
 	
 	
 	  getInitialState: function getInitialState() {
-	    return { songs: "Test song 1" };
+	    return { songs: [] };
+	  },
+	
+	  componentDidMount: function componentDidMount() {
+	    var url = "https://itunes.apple.com/gb/rss/topsongs/limit=20/json";
+	    var request = new XMLHttpRequest();
+	    request.open("GET", url);
+	    request.onload = function () {
+	      var data = JSON.parse(request.responseText);
+	      this.setState({ songs: data.feed.entry });
+	    }.bind(this);
+	    request.send();
 	  },
 	
 	  render: function render() {
+	
+	    var songList = this.state.songs.map(function (song, index) {
+	      return React.createElement(Song, {
+	        key: index,
+	        title: song['im:name'].label,
+	        artist: song['im:artist'].label });
+	    });
+	    console.log("song list", songList);
+	    console.log("songs", this.state.songs);
+	
 	    return React.createElement(
 	      'div',
 	      null,
-	      React.createElement(Song, { title: this.state.songs })
+	      React.createElement(
+	        'h2',
+	        null,
+	        'Song List'
+	      ),
+	      React.createElement(
+	        'ol',
+	        null,
+	        songList
+	      )
 	    );
 	  }
 	
@@ -19786,10 +19816,13 @@
 	var React = __webpack_require__(1);
 	
 	var Song = function Song(props) {
+	
 	  return React.createElement(
-	    'p',
+	    'li',
 	    null,
-	    props.title
+	    props.title,
+	    ' by ',
+	    props.artist
 	  );
 	};
 	

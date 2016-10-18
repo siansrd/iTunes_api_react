@@ -1,8 +1,9 @@
 var React = require('react');
 
 var Song = function(props){
+
   return (
-    <p>{props.title}</p>
+    <li>{props.title} by {props.artist}</li>
   )
 }
 
