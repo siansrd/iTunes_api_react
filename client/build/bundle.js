@@ -19784,8 +19784,6 @@
 	        title: song['im:name'].label,
 	        artist: song['im:artist'].label });
 	    });
-	    console.log("song list", songList);
-	    console.log("songs", this.state.songs);
 	
 	    return React.createElement(
 	      'div',

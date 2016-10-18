@@ -27,8 +27,6 @@ var SongList = React.createClass({
                 artist={song['im:artist'].label}>
               </Song>
     })
-    console.log("song list", songList)
-    console.log("songs", this.state.songs)
 
     return(
       <div>
